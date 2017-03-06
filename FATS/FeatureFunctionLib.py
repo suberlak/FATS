@@ -296,9 +296,9 @@ class Con(Base):
         m = np.mean(magnitude)
         count = 0
 
-        for i in xrange(N - self.consecutiveStar + 1):
+        for i in range(N - self.consecutiveStar + 1):
             flag = 0
-            for j in xrange(self.consecutiveStar):
+            for j in range(self.consecutiveStar):
                 if(magnitude[i + j] > m + 2 * sigma or magnitude[i + j] < m - 2 * sigma):
                     flag = 1
                 else:
