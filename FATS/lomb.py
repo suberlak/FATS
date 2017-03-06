@@ -140,7 +140,7 @@ def fasper(x,y,ofac,hifac, MACC=4):
   ck  = ((x-xmin)*fac) % fndim  
   ckk  = (2.0*ck) % fndim  
   
-  for j in range(0L, n):  
+  for j in range(0, n):  
     __spread__(y[j]-ave,wk1,ndim,ck[j],MACC)  
     __spread__(1.0,wk2,ndim,ckk[j],MACC)  
   
