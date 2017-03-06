@@ -90,7 +90,9 @@ class FeatureSpace:
                                     self.featureOrder.append((inspect.getsourcelines(obj)[-1:])[0])
                                     self.featureList.append(name)
                                 else:
-                                    print "Warning: the feature", name, "could not be calculated because", obj().Data, "are needed."
+                                    print("Warning: the feature %s could not be calculated because "%name )
+                                    print(obj().Data)
+                                    print("are needed.")
                 else:
 
                     for feature in featureList:
@@ -100,7 +102,9 @@ class FeatureSpace:
                                     if set(obj().Data).issubset(self.Data):
                                         self.featureList.append(name)
                                     else:
-                                        print "Warning: the feature", name, "could not be calculated because", obj().Data, "are needed."
+                                        print("Warning: the feature %s could not be calculated because "%name )
+                                        print(obj().Data)
+                                        print("are needed.")
 
             if self.featureOrder != []:
                 self.sort = True
@@ -118,19 +122,19 @@ class FeatureSpace:
                 try:
                     a = getattr(m, item)(kwargs[item])
                 except:
-                    print "error in feature " + item
+                    print("error in feature %s"% item)
                     sys.exit(1)
             else:
                 try:
                     a = getattr(m, item)()
                 except:
-                    print " could not find feature " + item
+                    print(" could not find feature %s"% item)
                     # discuss -- should we exit?
                     sys.exit(1)
             try:
                 self.featureFunc.append(a.fit)
             except:
-                print "could not initilize " + item
+                print("could not initilize %s " %item)
 
     def calculateFeature(self, data):
         self._X = np.asarray(data)
