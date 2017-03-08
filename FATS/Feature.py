@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import featureFunction
+from . import featureFunction
 
 
 class FeatureSpace:
@@ -80,7 +80,7 @@ class FeatureSpace:
                 if featureList is None:
                     for name, obj in inspect.getmembers(featureFunction):
                         if inspect.isclass(obj) and name != 'Base' and not name in excludeList:
-                            if name in kwargs.keys():
+                            if name in list(kwargs.keys()):
                                 if set(obj(kwargs[name]).Data).issubset(self.Data):
                                     self.featureOrder.append((inspect.getsourcelines(obj)[-1:])[0])
                                     self.featureList.append(name)
@@ -90,7 +90,7 @@ class FeatureSpace:
                                     self.featureOrder.append((inspect.getsourcelines(obj)[-1:])[0])
                                     self.featureList.append(name)
                                 else:
-                                    print "Warning: the feature", name, "could not be calculated because", obj().Data, "are needed."
+                                    print("Warning: the feature", name, "could not be calculated because", obj().Data, "are needed.")
                 else:
 
                     for feature in featureList:
@@ -100,7 +100,7 @@ class FeatureSpace:
                                     if set(obj().Data).issubset(self.Data):
                                         self.featureList.append(name)
                                     else:
-                                        print "Warning: the feature", name, "could not be calculated because", obj().Data, "are needed."
+                                        print("Warning: the feature", name, "could not be calculated because", obj().Data, "are needed.")
 
             if self.featureOrder != []:
                 self.sort = True
@@ -114,23 +114,23 @@ class FeatureSpace:
         m = featureFunction
 
         for item in self.featureList:
-            if item in kwargs.keys():
+            if item in list(kwargs.keys()):
                 try:
                     a = getattr(m, item)(kwargs[item])
                 except:
-                    print "error in feature " + item
+                    print("error in feature " + item)
                     sys.exit(1)
             else:
                 try:
                     a = getattr(m, item)()
                 except:
-                    print " could not find feature " + item
+                    print(" could not find feature " + item)
                     # discuss -- should we exit?
                     sys.exit(1)
             try:
                 self.featureFunc.append(a.fit)
             except:
-                print "could not initilize " + item
+                print("could not initilize " + item)
 
     def calculateFeature(self, data):
         self._X = np.asarray(data)
@@ -147,9 +147,9 @@ class FeatureSpace:
                 return np.asarray(self.__result)
         elif method == 'dict':
             if self.sort == True:
-                return dict(zip([self.featureList[i] for i in self.idx], [np.asarray(self.__result)[i] for i in self.idx]))
+                return dict(list(zip([self.featureList[i] for i in self.idx], [np.asarray(self.__result)[i] for i in self.idx])))
             else:
-                return dict(zip(self.featureList, np.asarray(self.__result)))
+                return dict(list(zip(self.featureList, np.asarray(self.__result))))
         elif method == 'features':
             if self.sort == True:
                 return [self.featureList[i] for i in self.idx]

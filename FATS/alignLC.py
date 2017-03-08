@@ -13,7 +13,7 @@ def Align_LC(mjd, mjd2, data, data2, error, error2):
         new_data = np.copy(data)
         count = 0
 
-        for index in xrange(len(data)):
+        for index in range(len(data)):
 
             where = np.where(mjd2 == mjd[index])
 
@@ -41,7 +41,7 @@ def Align_LC(mjd, mjd2, data, data2, error, error2):
         new_error2 = np.copy(error2)
         new_data2 = np.copy(data2)
         count = 0
-        for index in xrange(len(data2)):
+        for index in range(len(data2)):
             where = np.where(mjd == mjd2[index])
 
             if np.array_equal(where[0], []) is False:

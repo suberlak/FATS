@@ -17,12 +17,12 @@ class ReadLC_MACHO:
         saltos_linea = 3
         delimiter = ' '
         for i in range(0,saltos_linea):
-            fid.next()
+            next(fid)
         LC = []
 
         for lines in fid:
             str_line = lines.strip().split()
-            floats = map(float, str_line)
+            floats = list(map(float, str_line))
             #numbers = (number for number in str_line.split())
             LC.append(floats)
 

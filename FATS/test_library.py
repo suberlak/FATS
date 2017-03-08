@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from Feature import FeatureSpace
+from .Feature import FeatureSpace
 import numpy as np
-from import_lc_cluster import ReadLC_MACHO
-from PreprocessLC import Preprocess_LC
-from alignLC import Align_LC
+from .import_lc_cluster import ReadLC_MACHO
+from .PreprocessLC import Preprocess_LC
+from .alignLC import Align_LC
 import os.path
 import tarfile
 import sys
@@ -54,10 +54,10 @@ def random_walk():
 	sigma = 0.5
 	data_rw = np.zeros([N,1])
 	data_rw[0] = 1
-	time_rw = xrange(1, N)
+	time_rw = range(1, N)
 	for t in time_rw:
 		data_rw[t] = alpha * data_rw[t-1] + np.random.normal(loc=0.0, scale=sigma)
-	time_rw = np.array(range(0,N)) + 1 * np.random.uniform(size=N)
+	time_rw = np.array(list(range(0,N))) + 1 * np.random.uniform(size=N)
 	data_rw = data_rw.squeeze()
 	lc = np.array([data_rw, time_rw])
 	return lc
